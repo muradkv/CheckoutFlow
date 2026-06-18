@@ -9,20 +9,46 @@ import SwiftUI
 
 struct AddressStepView: View {
     let step: Int
+    @Binding var path: [Int]
     
     var body: some View {
-        VStack(spacing: 16) {
-            Text("📍 Checkout Step \(step)")
+        VStack(spacing: 24) {
+            Text("📍 Checkout Step \(step) of 3")
                 .font(.title2)
                 .bold()
             
-            Text("Shipping Address Input Form Placeholder")
-                .foregroundColor(.secondary)
+            switch step {
+            case 1:
+                Text("Enter Shipping Address...")
+                    .foregroundColor(.secondary)
+            case 2:
+                Text("Select Payment Method (Card / Apple Pay)...")
+                    .foregroundColor(.secondary)
+            default:
+                Text("Review Order and Confirm Details.")
+                    .foregroundColor(.secondary)
+            }
+            
+            Spacer()
+            
+            if step < 3 {
+                Button("Next Step ➡️") {
+                    path.append(step + 1)
+                }
+                .buttonStyle(.bordered)
+            } else {
+                Button("📦 Confirm & Pay") {
+                    path.removeAll()
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.green)
+            }
         }
-        .navigationTitle("Shipping")
+        .padding()
+        .navigationTitle("Step \(step)")
     }
 }
 
 #Preview {
-    AddressStepView(step: 1)
+    AddressStepView(step: 1, path: .constant([1]))
 }
