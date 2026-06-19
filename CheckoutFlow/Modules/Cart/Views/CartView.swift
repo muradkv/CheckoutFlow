@@ -26,6 +26,9 @@ struct CartView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.blue)
+                
+                NavigationLink("View Active Promo", value: viewModel.promoCodeToken)
+                    .buttonStyle(.bordered)
             }
             .padding()
             .navigationTitle("Store")
@@ -33,6 +36,11 @@ struct CartView: View {
             .navigationDestination(for: Int.self) { stepNumber in
                 let _ = print("Programmatically loaded step screen: \(stepNumber)")
                 AddressStepView(step: stepNumber, path: $viewModel.checkoutPath)
+            }
+            
+            .navigationDestination(for: String.self) { promoCode in
+                let _ = print("Loaded promo screen via NavigationPath: \(promoCode)")
+                PromoView(code: promoCode)
             }
         }
     }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddressStepView: View {
     let step: Int
-    @Binding var path: [Int]
+    @Binding var path: NavigationPath
     
     var body: some View {
         VStack(spacing: 24) {
@@ -38,7 +38,7 @@ struct AddressStepView: View {
                 .buttonStyle(.bordered)
             } else {
                 Button("📦 Confirm & Pay") {
-                    path.removeAll()
+                    path = NavigationPath()
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.green)
@@ -50,5 +50,5 @@ struct AddressStepView: View {
 }
 
 #Preview {
-    AddressStepView(step: 1, path: .constant([1]))
+    AddressStepView(step: 1, path: .constant(NavigationPath()))
 }
