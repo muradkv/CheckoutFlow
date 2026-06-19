@@ -11,7 +11,7 @@ struct CartView: View {
     @State private var viewModel = CartViewModel()
     
     var body: some View {
-        NavigationStack(path: $viewModel.checkoutPath) {
+        NavigationStack(path: $viewModel.checkoutPath.path) {
             VStack(spacing: 24) {
                 Text(viewModel.cartTitle)
                     .font(.system(.largeTitle, design: .rounded))
@@ -35,7 +35,7 @@ struct CartView: View {
             
             .navigationDestination(for: Int.self) { stepNumber in
                 let _ = print("Programmatically loaded step screen: \(stepNumber)")
-                AddressStepView(step: stepNumber, path: $viewModel.checkoutPath)
+                AddressStepView(step: stepNumber, path: $viewModel.checkoutPath.path)
             }
             
             .navigationDestination(for: String.self) { promoCode in
